@@ -1,0 +1,34 @@
+# CUDA build artifacts
+*.obj
+*.exe
+*.dll
+*.lib
+*.exp
+*.out
+*.o
+*.a
+*.so
+*.pdb
+
+# CUDA intermediate files
+*.ptx
+*.cubin
+*.fatbin
+
+# IDE-specific files
+.vscode/
+.idea/
+*.user
+*.suo
+*.ncb
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# System files
+.DS_Store
+Thumbs.db
