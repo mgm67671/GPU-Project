@@ -69,18 +69,13 @@ To analyze the performance of the GPU implementations, use **NVIDIA Nsight Compu
 
 1. **Naive GPU Version**:
    ```bash
-   nv-nsight-cu-cli ./sobel_gpu_naive
+   ncu sobel_gpu_naive
    ```
 
 2. **Optimized GPU Version**:
    ```bash
-   nv-nsight-cu-cli ./sobel_gpu_optimized
+   ncu sobel_gpu_optimized
    ```
-
-For a graphical interface, launch Nsight Compute:
-```bash
-nv-nsight-cu
-```
 
 ---
 
