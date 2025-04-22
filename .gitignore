@@ -32,3 +32,6 @@
 # System files
 .DS_Store
 Thumbs.db
+sobel_gpu_naive
+sobel_gpu_optimized
+sobel_cpu

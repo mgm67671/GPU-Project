@@ -59,11 +59,11 @@ int main() {
     // Apply the Sobel filter
     applySobel(input, output);
 
-    // Save and display the result
-    cv::imwrite("output_image.jpg", output);
-    cv::imshow("Input Image", input);
-    cv::imshow("Sobel Edge Detection", output);
-    cv::waitKey(0);
+    // Save the result
+    cv::imwrite("cpu_output_image.jpg", output);
+    // cv::imshow("Input Image", input);
+    // cv::imshow("Sobel Edge Detection", output);
+    // cv::waitKey(0);
 
     return 0;
 }
