@@ -34,4 +34,5 @@
 Thumbs.db
 sobel_gpu_naive
 sobel_gpu_optimized
+sobel_gpu_coarsened
 sobel_cpu
