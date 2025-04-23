@@ -3,7 +3,8 @@
 #include <cuda_runtime.h>
 
 // CUDA kernel for applying the Sobel filter with shared memory optimization
-__global__ void sobelKernelOptimized(const unsigned char* input, unsigned char* output, int width, int height) {
+__global__ void sobelKernelOptimized(const unsigned char* input, unsigned char* output, int width, int height) 
+{
     // Shared memory for the tile
     __shared__ unsigned char sharedMem[18][18]; // Block size (16x16) + 2 for borders
 
@@ -16,36 +17,29 @@ __global__ void sobelKernelOptimized(const unsigned char* input, unsigned char* 
     int sharedY = threadIdx.y + 1;
 
     // Load data into shared memory
-    if (x < width && y < height) {
+    if (x < width && y < height) 
+    {
         sharedMem[sharedY][sharedX] = input[y * width + x];
 
         // Load border pixels into shared memory
-        if (threadIdx.x == 0 && x > 0) {
+        if (threadIdx.x == 0 && x > 0)
             sharedMem[sharedY][0] = input[y * width + (x - 1)];
-        }
-        if (threadIdx.x == blockDim.x - 1 && x < width - 1) {
+        if (threadIdx.x == blockDim.x - 1 && x < width - 1)
             sharedMem[sharedY][sharedX + 1] = input[y * width + (x + 1)];
-        }
-        if (threadIdx.y == 0 && y > 0) {
+        if (threadIdx.y == 0 && y > 0)
             sharedMem[0][sharedX] = input[(y - 1) * width + x];
-        }
-        if (threadIdx.y == blockDim.y - 1 && y < height - 1) {
+        if (threadIdx.y == blockDim.y - 1 && y < height - 1)
             sharedMem[sharedY + 1][sharedX] = input[(y + 1) * width + x];
-        }
 
         // Load corner pixels
-        if (threadIdx.x == 0 && threadIdx.y == 0 && x > 0 && y > 0) {
+        if (threadIdx.x == 0 && threadIdx.y == 0 && x > 0 && y > 0)
             sharedMem[0][0] = input[(y - 1) * width + (x - 1)];
-        }
-        if (threadIdx.x == blockDim.x - 1 && threadIdx.y == 0 && x < width - 1 && y > 0) {
+        if (threadIdx.x == blockDim.x - 1 && threadIdx.y == 0 && x < width - 1 && y > 0)
             sharedMem[0][sharedX + 1] = input[(y - 1) * width + (x + 1)];
-        }
-        if (threadIdx.x == 0 && threadIdx.y == blockDim.y - 1 && x > 0 && y < height - 1) {
+        if (threadIdx.x == 0 && threadIdx.y == blockDim.y - 1 && x > 0 && y < height - 1)
             sharedMem[sharedY + 1][0] = input[(y + 1) * width + (x - 1)];
-        }
-        if (threadIdx.x == blockDim.x - 1 && threadIdx.y == blockDim.y - 1 && x < width - 1 && y < height - 1) {
+        if (threadIdx.x == blockDim.x - 1 && threadIdx.y == blockDim.y - 1 && x < width - 1 && y < height - 1)
             sharedMem[sharedY + 1][sharedX + 1] = input[(y + 1) * width + (x + 1)];
-        }
     }
 
     // Synchronize threads to ensure shared memory is fully loaded
@@ -65,13 +59,16 @@ __global__ void sobelKernelOptimized(const unsigned char* input, unsigned char* 
     };
 
     // Apply Sobel filter if within bounds
-    if (x > 0 && x < width - 1 && y > 0 && y < height - 1) {
+    if (x > 0 && x < width - 1 && y > 0 && y < height - 1) 
+    {
         int sumX = 0;
         int sumY = 0;
 
         // Convolution with Sobel kernels
-        for (int ky = -1; ky <= 1; ++ky) {
-            for (int kx = -1; kx <= 1; ++kx) {
+        for (int ky = -1; ky <= 1; ++ky) 
+        {
+            for (int kx = -1; kx <= 1; ++kx) 
+            {
                 int pixel = sharedMem[sharedY + ky][sharedX + kx];
                 sumX += pixel * Gx[ky + 1][kx + 1];
                 sumY += pixel * Gy[ky + 1][kx + 1];
@@ -87,10 +84,12 @@ __global__ void sobelKernelOptimized(const unsigned char* input, unsigned char* 
     }
 }
 
-int main() {
+int main() 
+{
     // Load the input image in grayscale
     cv::Mat input = cv::imread("input_image.jpg", cv::IMREAD_GRAYSCALE);
-    if (input.empty()) {
+    if (input.empty()) 
+    {
         std::cerr << "Error: Could not load input image!" << std::endl;
         return -1;
     }
