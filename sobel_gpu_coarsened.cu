@@ -3,7 +3,7 @@
 #include <cuda_runtime.h>
 
 // Define the coarsening factor as a global constant
-constexpr int COARSENING_FACTOR = 2;
+constexpr int COARSENING_FACTOR = 4;
 
 // CUDA kernel for applying the Sobel filter with thread coarsening
 __global__ void sobelKernelCoarsened(const unsigned char* input, unsigned char* output, int width, int height) 
