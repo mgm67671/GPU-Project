@@ -4,7 +4,8 @@
 #include <opencv2/opencv.hpp> // OpenCV for image handling
 
 // Function to apply the Sobel filter
-void applySobel(const cv::Mat& input, cv::Mat& output) {
+void applySobel(const cv::Mat& input, cv::Mat& output) 
+{
     // Sobel kernels
     int Gx[3][3] = {
         {-1, 0, 1},
@@ -22,14 +23,18 @@ void applySobel(const cv::Mat& input, cv::Mat& output) {
     output = cv::Mat::zeros(input.size(), CV_8UC1);
 
     // Apply the Sobel filter
-    for (int y = 1; y < input.rows - 1; ++y) {
-        for (int x = 1; x < input.cols - 1; ++x) {
+    for (int y = 1; y < input.rows - 1; ++y) 
+    {
+        for (int x = 1; x < input.cols - 1; ++x) 
+        {
             int sumX = 0;
             int sumY = 0;
 
             // Convolution with Sobel kernels
-            for (int ky = -1; ky <= 1; ++ky) {
-                for (int kx = -1; kx <= 1; ++kx) {
+            for (int ky = -1; ky <= 1; ++ky) 
+            {
+                for (int kx = -1; kx <= 1; ++kx) 
+                {
                     int pixel = input.at<uchar>(y + ky, x + kx);
                     sumX += pixel * Gx[ky + 1][kx + 1];
                     sumY += pixel * Gy[ky + 1][kx + 1];
@@ -45,10 +50,12 @@ void applySobel(const cv::Mat& input, cv::Mat& output) {
     }
 }
 
-int main() {
+int main() 
+{
     // Load the input image in grayscale
     cv::Mat input = cv::imread("input_image.jpg", cv::IMREAD_GRAYSCALE);
-    if (input.empty()) {
+    if (input.empty()) 
+    {
         std::cerr << "Error: Could not load input image!" << std::endl;
         return -1;
     }

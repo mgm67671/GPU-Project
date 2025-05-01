@@ -3,7 +3,8 @@
 #include <cuda_runtime.h>
 
 // CUDA kernel for applying the Sobel filter
-__global__ void sobelKernel(const unsigned char* input, unsigned char* output, int width, int height) {
+__global__ void sobelKernel(const unsigned char* input, unsigned char* output, int width, int height) 
+{
     // Calculate the thread's position in the image
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
@@ -22,13 +23,16 @@ __global__ void sobelKernel(const unsigned char* input, unsigned char* output, i
     };
 
     // Ensure the thread is within bounds and not on the border
-    if (x > 0 && x < width - 1 && y > 0 && y < height - 1) {
+    if (x > 0 && x < width - 1 && y > 0 && y < height - 1) 
+    {
         int sumX = 0;
         int sumY = 0;
 
         // Apply the Sobel filter
-        for (int ky = -1; ky <= 1; ++ky) {
-            for (int kx = -1; kx <= 1; ++kx) {
+        for (int ky = -1; ky <= 1; ++ky) 
+        {
+            for (int kx = -1; kx <= 1; ++kx) 
+            {
                 int pixel = input[(y + ky) * width + (x + kx)];
                 sumX += pixel * Gx[ky + 1][kx + 1];
                 sumY += pixel * Gy[ky + 1][kx + 1];
@@ -44,10 +48,12 @@ __global__ void sobelKernel(const unsigned char* input, unsigned char* output, i
     }
 }
 
-int main() {
+int main() 
+{
     // Load the input image in grayscale
     cv::Mat input = cv::imread("input_image.jpg", cv::IMREAD_GRAYSCALE);
-    if (input.empty()) {
+    if (input.empty()) 
+    {
         std::cerr << "Error: Could not load input image!" << std::endl;
         return -1;
     }

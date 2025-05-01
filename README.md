@@ -4,6 +4,7 @@ This project implements the Sobel edge detection algorithm in three versions:
 1. **CPU Implementation** (`sobel_cpu.cpp`)
 2. **Naive GPU Implementation** (`sobel_gpu_naive.cu`)
 3. **Optimized GPU Implementation** (`sobel_gpu_optimized.cu`)
+4. **Coarsened GPU Implementation** (`sobel_gpu_coarsened.cu`)
 
 The GPU implementations use CUDA to accelerate the computation.
 
@@ -63,6 +64,16 @@ nvcc sobel_gpu_optimized.cu -o sobel_gpu_optimized `pkg-config --cflags --libs o
 
 ---
 
+### 4. **Coarsened GPU Implementation**
+Compile and run the optimized GPU version:
+```bash
+nvcc sobel_gpu_coarsened.cu -o sobel_gpu_coarsened `pkg-config --cflags --libs opencv4` -lineinfo
+./sobel_gpu_coarsened
+```
+- Output: `gpu_output_image_coarsened.jpg`
+
+---
+
 ## Profiling with Nsight Compute
 
 To analyze the performance of the GPU implementations, use **NVIDIA Nsight Compute**:
@@ -77,6 +88,11 @@ To analyze the performance of the GPU implementations, use **NVIDIA Nsight Compu
    ncu sobel_gpu_optimized
    ```
 
+3. **Coarsened GPU Version**:
+   ```bash
+   ncu sobel_gpu_coarsened
+   ```
+
 ---
 
 ## Expected Outputs
@@ -84,6 +100,7 @@ To analyze the performance of the GPU implementations, use **NVIDIA Nsight Compu
 - **CPU Output**: `cpu_output_image.jpg`
 - **Naive GPU Output**: `gpu_output_image_naive.jpg`
 - **Optimized GPU Output**: `gpu_output_image_optimized.jpg`
+- **Optimized GPU Output**: `gpu_output_image_coarsened.jpg`
 
 Compare the outputs visually to validate the correctness of the edge detection algorithm.
 
